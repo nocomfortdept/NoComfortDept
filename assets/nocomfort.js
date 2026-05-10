@@ -1,12 +1,19 @@
 /**
  * NoComfortDept — Conversion Engine
- * Urgency, social proof, sticky ATC, countdown timers, size selection
+ *
+ * Employee ownership map:
+ *   [PROMOTIONS]     initCountdowns, initMarquee
+ *   [CRO]            initStickyATC, initSizeSelector, initATCFeedback, initImageZoom
+ *   [SOCIAL-PROOF]   initSocialProofNotifications, initViewsCounter
+ *   [BRAND]          initScrollAnimations
+ *   [TIKTOK]         persistUTM
  */
 
 (function () {
   'use strict';
 
-  // ─── COUNTDOWN TIMER ───────────────────────────────────────────────────────
+  // ─── [PROMOTIONS] Promotions & Urgency Manager ────────────────────────────
+  // Owns: countdown timers, marquee duplication
 
   function initCountdowns() {
     document.querySelectorAll('[data-countdown]').forEach(function (el) {
@@ -67,11 +74,16 @@
     return true;
   }
 
-  function pad(n) {
-    return n < 10 ? '0' + n : String(n);
+  function initMarquee() {
+    var track = document.querySelector('.announcement-track');
+    if (!track) return;
+    var clone = track.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    track.parentNode.appendChild(clone);
   }
 
-  // ─── STICKY ATC ────────────────────────────────────────────────────────────
+  // ─── [CRO] CRO Specialist ────────────────────────────────────────────────
+  // Owns: sticky ATC, size selector, ATC feedback gate, image zoom
 
   function initStickyATC() {
     var stickyEl = document.querySelector('.sticky-atc');
@@ -93,8 +105,6 @@
 
     observer.observe(triggerEl);
   }
-
-  // ─── SIZE SELECTOR ─────────────────────────────────────────────────────────
 
   function initSizeSelector() {
     document.querySelectorAll('.size-grid').forEach(function (grid) {
@@ -148,17 +158,78 @@
     if (el) el.textContent = '/ ' + size;
   }
 
-  // ─── SOCIAL PROOF NOTIFICATIONS ────────────────────────────────────────────
+  function initATCFeedback() {
+    document.querySelectorAll('[data-atc-btn]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        var sizeBtn = document.querySelector('.size-btn.active');
+        if (!sizeBtn) {
+          e.preventDefault();
+          shakeSizeGrid();
+          return;
+        }
+        setATCLoading(btn, true);
+      });
+    });
+  }
+
+  function shakeSizeGrid() {
+    var grid = document.querySelector('.size-grid');
+    if (!grid) return;
+    grid.classList.add('shake');
+    setTimeout(function () { grid.classList.remove('shake'); }, 500);
+
+    var hint = document.querySelector('[data-size-hint]');
+    if (hint) {
+      hint.style.color = 'var(--red-hot)';
+      hint.textContent = 'Select your size first';
+      setTimeout(function () {
+        hint.style.color = '';
+        hint.textContent = 'Select Size';
+      }, 2000);
+    }
+  }
+
+  function setATCLoading(btn, loading) {
+    if (loading) {
+      btn.dataset.originalText = btn.textContent;
+      btn.textContent = 'Adding...';
+      btn.disabled = true;
+    } else {
+      btn.textContent = btn.dataset.originalText || 'Add to Cart';
+      btn.disabled = false;
+    }
+  }
+
+  function initImageZoom() {
+    document.querySelectorAll('[data-zoom-img]').forEach(function (img) {
+      img.addEventListener('mouseenter', function () {
+        img.style.transformOrigin = 'center';
+      });
+      img.addEventListener('mousemove', function (e) {
+        var rect = img.getBoundingClientRect();
+        var x = ((e.clientX - rect.left) / rect.width) * 100;
+        var y = ((e.clientY - rect.top) / rect.height) * 100;
+        img.style.transformOrigin = x + '% ' + y + '%';
+        img.style.transform = 'scale(1.6)';
+      });
+      img.addEventListener('mouseleave', function () {
+        img.style.transform = '';
+      });
+    });
+  }
+
+  // ─── [SOCIAL-PROOF] Social Proof Manager ─────────────────────────────────
+  // Owns: purchase notification toasts, live viewer counter
 
   var socialProofMessages = [
-    { name: 'Marcus T.', city: 'Atlanta', action: 'just copped', product: 'Blackout Hoodie — XL' },
-    { name: 'DeShawn R.', city: 'Houston', action: 'just ordered', product: 'Combat Tee — L' },
-    { name: 'Jordan K.', city: 'Chicago', action: 'just copped', product: 'Thermal Set — M' },
-    { name: 'Tyler W.', city: 'NYC', action: 'just grabbed', product: 'Drop #4 Joggers — XL' },
-    { name: 'Malik S.', city: 'LA', action: 'just ordered', product: 'NCD Heavyweight — XXL' },
-    { name: 'Chris B.', city: 'Miami', action: 'just copped', product: 'Stealth Crewneck — L' },
-    { name: 'Darius L.', city: 'Dallas', action: 'just ordered', product: 'Tactical Shorts — XL' },
-    { name: 'Andre M.', city: 'Detroit', action: 'just grabbed', product: 'Winter Drop — M' },
+    { name: 'Marcus T.',  city: 'Atlanta', action: 'just copped',   product: 'Blackout Hoodie — XL'   },
+    { name: 'DeShawn R.', city: 'Houston', action: 'just ordered',  product: 'Combat Tee — L'          },
+    { name: 'Jordan K.',  city: 'Chicago', action: 'just copped',   product: 'Thermal Set — M'         },
+    { name: 'Tyler W.',   city: 'NYC',     action: 'just grabbed',  product: 'Drop #4 Joggers — XL'   },
+    { name: 'Malik S.',   city: 'LA',      action: 'just ordered',  product: 'NCD Heavyweight — XXL'   },
+    { name: 'Chris B.',   city: 'Miami',   action: 'just copped',   product: 'Stealth Crewneck — L'   },
+    { name: 'Darius L.',  city: 'Dallas',  action: 'just ordered',  product: 'Tactical Shorts — XL'   },
+    { name: 'Andre M.',   city: 'Detroit', action: 'just grabbed',  product: 'Winter Drop — M'         },
   ];
 
   var notifQueue = [];
@@ -221,8 +292,6 @@
     return el;
   }
 
-  // ─── VIEWS COUNTER ─────────────────────────────────────────────────────────
-
   function initViewsCounter() {
     var el = document.querySelector('[data-live-views]');
     if (!el) return;
@@ -237,7 +306,8 @@
     }, randomBetween(4000, 12000));
   }
 
-  // ─── SCROLL ANIMATIONS ─────────────────────────────────────────────────────
+  // ─── [BRAND] Brand Architect ──────────────────────────────────────────────
+  // Owns: scroll-triggered animations
 
   function initScrollAnimations() {
     var observer = new IntersectionObserver(
@@ -258,61 +328,8 @@
     });
   }
 
-  // ─── ANNOUNCEMENT DUPLICATION (for seamless marquee) ──────────────────────
-
-  function initMarquee() {
-    var track = document.querySelector('.announcement-track');
-    if (!track) return;
-    var clone = track.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    track.parentNode.appendChild(clone);
-  }
-
-  // ─── ADD TO CART WITH FEEDBACK ─────────────────────────────────────────────
-
-  function initATCFeedback() {
-    document.querySelectorAll('[data-atc-btn]').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        var sizeBtn = document.querySelector('.size-btn.active');
-        if (!sizeBtn) {
-          e.preventDefault();
-          shakeSizeGrid();
-          return;
-        }
-        setATCLoading(btn, true);
-      });
-    });
-  }
-
-  function shakeSizeGrid() {
-    var grid = document.querySelector('.size-grid');
-    if (!grid) return;
-    grid.classList.add('shake');
-    setTimeout(function () { grid.classList.remove('shake'); }, 500);
-
-    var hint = document.querySelector('[data-size-hint]');
-    if (hint) {
-      hint.style.color = 'var(--red-hot)';
-      hint.textContent = 'Select your size first';
-      setTimeout(function () {
-        hint.style.color = '';
-        hint.textContent = 'Select Size';
-      }, 2000);
-    }
-  }
-
-  function setATCLoading(btn, loading) {
-    if (loading) {
-      btn.dataset.originalText = btn.textContent;
-      btn.textContent = 'Adding...';
-      btn.disabled = true;
-    } else {
-      btn.textContent = btn.dataset.originalText || 'Add to Cart';
-      btn.disabled = false;
-    }
-  }
-
-  // ─── TIKTOK UTM PERSISTENCE ─────────────────────────────────────────────────
+  // ─── [TIKTOK] TikTok Creative Director ───────────────────────────────────
+  // Owns: UTM source capture and sessionStorage attribution
 
   function persistUTM() {
     var params = new URLSearchParams(window.location.search);
@@ -322,27 +339,11 @@
     sessionStorage.setItem('ncd_utm', window.location.search);
   }
 
-  // ─── IMAGE ZOOM (product gallery) ─────────────────────────────────────────
+  // ─── HELPERS ──────────────────────────────────────────────────────────────
 
-  function initImageZoom() {
-    document.querySelectorAll('[data-zoom-img]').forEach(function (img) {
-      img.addEventListener('mouseenter', function () {
-        img.style.transformOrigin = 'center';
-      });
-      img.addEventListener('mousemove', function (e) {
-        var rect = img.getBoundingClientRect();
-        var x = ((e.clientX - rect.left) / rect.width) * 100;
-        var y = ((e.clientY - rect.top) / rect.height) * 100;
-        img.style.transformOrigin = x + '% ' + y + '%';
-        img.style.transform = 'scale(1.6)';
-      });
-      img.addEventListener('mouseleave', function () {
-        img.style.transform = '';
-      });
-    });
+  function pad(n) {
+    return n < 10 ? '0' + n : String(n);
   }
-
-  // ─── HELPERS ───────────────────────────────────────────────────────────────
 
   function randomBetween(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -351,26 +352,24 @@
   function shuffleArray(arr) {
     for (var i = arr.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
-      var tmp = arr[i];
-      arr[i] = arr[j];
-      arr[j] = tmp;
+      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
     }
     return arr;
   }
 
-  // ─── BOOT ──────────────────────────────────────────────────────────────────
+  // ─── BOOT ─────────────────────────────────────────────────────────────────
 
   function boot() {
-    persistUTM();
-    initCountdowns();
-    initStickyATC();
-    initSizeSelector();
-    initSocialProofNotifications();
-    initViewsCounter();
-    initScrollAnimations();
-    initMarquee();
-    initATCFeedback();
-    initImageZoom();
+    persistUTM();          // [TIKTOK]
+    initCountdowns();      // [PROMOTIONS]
+    initMarquee();         // [PROMOTIONS]
+    initStickyATC();       // [CRO]
+    initSizeSelector();    // [CRO]
+    initATCFeedback();     // [CRO]
+    initImageZoom();       // [CRO]
+    initSocialProofNotifications(); // [SOCIAL-PROOF]
+    initViewsCounter();    // [SOCIAL-PROOF]
+    initScrollAnimations(); // [BRAND]
   }
 
   if (document.readyState === 'loading') {
