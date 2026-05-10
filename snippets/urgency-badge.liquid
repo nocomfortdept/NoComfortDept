@@ -1,0 +1,20 @@
+{% comment %}
+  NoComfortDept — Urgency Badge Snippet
+  Usage: {% render 'urgency-badge', inventory: product.selected_or_first_available_variant.inventory_quantity %}
+{% endcomment %}
+
+{% assign inv = inventory | default: 99 %}
+
+{% if inv <= 3 and inv > 0 %}
+  <span class="price-savings" style="background:var(--red-hot); animation: pulse 1.5s infinite;">
+    🔥 Only {{ inv }} Left
+  </span>
+{% elsif inv <= 10 and inv > 0 %}
+  <span class="price-savings" style="background:#e67e22;">
+    ⚠ Low Stock — {{ inv }} Left
+  </span>
+{% elsif inv == 0 %}
+  <span class="price-savings" style="background:var(--graphite); color:var(--smoke);">
+    Sold Out
+  </span>
+{% endif %}

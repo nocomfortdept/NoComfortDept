@@ -1,0 +1,515 @@
+{% comment %}
+  NoComfortDept — TikTok Landing Page Section
+  Optimized for mobile-first, high-intent traffic from TikTok/short-form video.
+  Drop this section in a page template: templates/page.tiktok-lp.json
+{% endcomment %}
+
+<div class="tiktok-lp" id="tiktok-lp">
+
+  {% comment %} ── URGENCY BAR ── {% endcomment %}
+  <div class="urgency-bar" role="alert" aria-live="polite">
+    <strong>⚡ DROP ALERT:</strong>
+    {{ section.settings.urgency_bar_text }}
+    &nbsp;—&nbsp; Ends in
+    <span
+      class="countdown-inline"
+      data-countdown="hours"
+      data-countdown-hours="{{ section.settings.countdown_hours }}"
+      id="tiktok-cd"
+    >
+      <span data-cd-hours>--</span>:<span data-cd-minutes>--</span>:<span data-cd-seconds>--</span>
+    </span>
+  </div>
+
+  {% comment %} ── HERO ── {% endcomment %}
+  <section class="tiktok-hero">
+    <div class="tiktok-hero__bg">
+      {% if section.settings.hero_video != blank %}
+        <video
+          src="{{ section.settings.hero_video }}"
+          autoplay
+          muted
+          loop
+          playsinline
+          poster="{{ section.settings.hero_image | img_url: '1200x' }}"
+        ></video>
+      {% elsif section.settings.hero_image != blank %}
+        <img
+          src="{{ section.settings.hero_image | img_url: '1200x' }}"
+          alt="{{ section.settings.hero_image.alt | escape }}"
+          loading="eager"
+        >
+      {% else %}
+        <div style="background: #111; width:100%; height:100%;"></div>
+      {% endif %}
+    </div>
+
+    <div class="tiktok-hero__overlay"></div>
+
+    <div class="tiktok-hero__content animate-fade-up" data-delay="1">
+      <div class="tiktok-hero__eyebrow">{{ section.settings.eyebrow_text }}</div>
+
+      <h1 class="tiktok-hero__headline">
+        {{ section.settings.headline }}
+      </h1>
+
+      <p class="tiktok-hero__sub">{{ section.settings.subheadline }}</p>
+
+      {% comment %} ── Stock indicator ── {% endcomment %}
+      {% if section.settings.show_stock %}
+        <div class="stock-indicator" style="justify-content:center;">
+          <span class="stock-dot stock-dot--red"></span>
+          {{ section.settings.stock_text }}
+        </div>
+      {% endif %}
+
+      {% comment %} ── CTA buttons ── {% endcomment %}
+      <div class="tiktok-hero__cta-group">
+        <a
+          href="{{ section.settings.primary_cta_link }}"
+          class="btn btn-primary btn-lg btn-full"
+        >
+          {{ section.settings.primary_cta_label }}
+        </a>
+
+        {% if section.settings.secondary_cta_label != blank %}
+          <a
+            href="{{ section.settings.secondary_cta_link }}"
+            class="btn btn-ghost btn-full"
+          >
+            {{ section.settings.secondary_cta_label }}
+          </a>
+        {% endif %}
+      </div>
+
+      {% comment %} ── Trust line ── {% endcomment %}
+      <div class="tiktok-hero__trust">
+        <span class="tiktok-hero__trust-item">🔒 Secure Checkout</span>
+        <span class="tiktok-hero__trust-item">📦 Free Returns</span>
+        <span class="tiktok-hero__trust-item">⚡ Ships in 24h</span>
+      </div>
+    </div>
+  </section>
+
+  {% comment %} ── PRODUCT SPOTLIGHT ── {% endcomment %}
+  {% if section.settings.featured_product != blank %}
+    {% assign fp = section.settings.featured_product %}
+    <section class="product-spotlight" style="background:var(--off-black); padding:var(--spacing-xl) var(--spacing-lg);">
+      <div class="container">
+        <div class="product-hero">
+
+          {% comment %} Media {% endcomment %}
+          <div class="product-media" style="position:relative; height:60vw; max-height:600px; overflow:hidden;">
+            <img
+              src="{{ fp.featured_image | img_url: '800x' }}"
+              alt="{{ fp.featured_image.alt | default: fp.title | escape }}"
+              loading="lazy"
+              data-zoom-img
+            >
+          </div>
+
+          {% comment %} Info {% endcomment %}
+          <div class="product-info">
+            <div class="product-category">{{ fp.type | upcase }}</div>
+
+            <h2 class="product-name">{{ fp.title }}</h2>
+
+            {% if fp.metafields.custom.tagline != blank %}
+              <p class="product-tagline">{{ fp.metafields.custom.tagline }}</p>
+            {% endif %}
+
+            {% comment %} Price {% endcomment %}
+            <div class="product-price-block" data-sticky-trigger>
+              <span class="price-current">
+                {{ fp.price | money }}
+              </span>
+              {% if fp.compare_at_price > fp.price %}
+                <span class="price-compare">{{ fp.compare_at_price | money }}</span>
+                <span class="price-savings">
+                  Save {{ fp.compare_at_price | minus: fp.price | money }}
+                </span>
+              {% endif %}
+            </div>
+
+            {% comment %} Countdown under price {% endcomment %}
+            {% if section.settings.show_product_countdown %}
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <span class="label">Sale ends in:</span>
+                <div class="countdown-block" data-countdown="hours" data-countdown-hours="{{ section.settings.countdown_hours }}" id="product-cd">
+                  <div class="countdown-unit">
+                    <span class="countdown-number" data-cd-hours>--</span>
+                    <span class="countdown-label">Hrs</span>
+                  </div>
+                  <span class="countdown-sep">:</span>
+                  <div class="countdown-unit">
+                    <span class="countdown-number" data-cd-minutes>--</span>
+                    <span class="countdown-label">Min</span>
+                  </div>
+                  <span class="countdown-sep">:</span>
+                  <div class="countdown-unit">
+                    <span class="countdown-number" data-cd-seconds>--</span>
+                    <span class="countdown-label">Sec</span>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
+            {% comment %} Description {% endcomment %}
+            <p class="product-description">{{ fp.description | strip_html | truncate: 240 }}</p>
+
+            {% comment %} Features {% endcomment %}
+            {% if fp.metafields.custom.features != blank %}
+              <ul class="product-features">
+                {% assign features = fp.metafields.custom.features | split: '|' %}
+                {% for feat in features %}
+                  <li>{{ feat | strip }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+
+            {% comment %} Size selector {% endcomment %}
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span class="label" data-size-hint>Select Size</span>
+                <span class="label" style="color:var(--white);" data-selected-size></span>
+              </div>
+              <div class="size-grid" role="group" aria-label="Size selection">
+                {% for variant in fp.variants %}
+                  <button
+                    class="size-btn{% if variant.available == false %} sold-out{% elsif variant.inventory_quantity <= 5 %} low-stock{% endif %}"
+                    data-size="{{ variant.title }}"
+                    data-variant-id="{{ variant.id }}"
+                    data-inventory="{{ variant.inventory_quantity }}"
+                    {% if variant.available == false %}disabled aria-disabled="true"{% endif %}
+                    aria-selected="false"
+                    role="radio"
+                  >
+                    {{ variant.title }}
+                  </button>
+                {% endfor %}
+              </div>
+            </div>
+
+            {% comment %} Stock message {% endcomment %}
+            <div class="stock-indicator" data-stock-message>
+              <span class="stock-dot stock-dot--green"></span> In Stock — Select a size
+            </div>
+
+            {% comment %} Live viewers {% endcomment %}
+            {% if section.settings.show_live_viewers %}
+              <div class="social-proof-ticker">
+                <span>👁</span>
+                <span><span data-live-views="{{ section.settings.base_viewers }}">{{ section.settings.base_viewers }}</span> people viewing right now</span>
+              </div>
+            {% endif %}
+
+            {% comment %} ATC form {% endcomment %}
+            <form method="post" action="/cart/add" id="tiktok-atc-form">
+              <input type="hidden" name="id" data-variant-input value="{{ fp.variants.first.id }}">
+              <input type="hidden" name="quantity" value="1">
+              {% if section.settings.utm_source != blank %}
+                <input type="hidden" name="properties[_ref]" value="{{ section.settings.utm_source }}">
+              {% endif %}
+              <button
+                type="submit"
+                class="btn btn-primary btn-full btn-lg"
+                data-atc-btn
+              >
+                Add to Cart — {{ fp.price | money }}
+              </button>
+            </form>
+
+            {% comment %} Micro trust signals {% endcomment %}
+            <div class="trust-strip" style="border:none; padding:0; justify-content:flex-start; gap:var(--spacing-md);">
+              <span class="trust-item"><span class="trust-icon">🔒</span> Secure</span>
+              <span class="trust-item"><span class="trust-icon">📦</span> Free Returns</span>
+              <span class="trust-item"><span class="trust-icon">⚡</span> Ships Today</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {% comment %} ── SOCIAL PROOF REVIEWS ── {% endcomment %}
+  {% if section.blocks.size > 0 %}
+    <section class="reviews-section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">From the community</p>
+          <h2 class="section-title">Real Men. Real Results.</h2>
+          <div class="divider"></div>
+        </div>
+
+        <div class="review-grid">
+          {% for block in section.blocks %}
+            {% if block.type == 'review' %}
+              <div class="review-card animate-fade-up" data-delay="{{ forloop.index }}" {{ block.shopify_attributes }}>
+                <div class="review-stars">
+                  {% for i in (1..5) %}★{% endfor %}
+                </div>
+                <p class="review-text">"{{ block.settings.review_text }}"</p>
+                <div class="review-author">{{ block.settings.reviewer_name }}
+                  {% if block.settings.reviewer_location != blank %}
+                    — {{ block.settings.reviewer_location }}
+                  {% endif %}
+                </div>
+                <div class="review-verified">
+                  <span>✓</span> Verified Purchase
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {% comment %} ── USP / BRAND PILLARS ── {% endcomment %}
+  <section class="usp-section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">Why NoComfortDept</p>
+        <h2 class="section-title">Built Different</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="usp-grid">
+        <div class="usp-item animate-fade-up" data-delay="1">
+          <div class="usp-icon">⚫</div>
+          <div class="usp-title">Premium Fabric</div>
+          <p class="usp-body">400gsm heavyweight cotton. Structured. Uncompromising. Built to outlast every season and every excuse.</p>
+        </div>
+        <div class="usp-item animate-fade-up" data-delay="2">
+          <div class="usp-icon">🎯</div>
+          <div class="usp-title">Limited Drops</div>
+          <p class="usp-body">No restocks. No mass production. When it's gone — it's gone. Scarcity is by design, not accident.</p>
+        </div>
+        <div class="usp-item animate-fade-up" data-delay="3">
+          <div class="usp-icon">✦</div>
+          <div class="usp-title">Masculine Fit</div>
+          <p class="usp-body">Proportioned for men who move with intention. Shoulder-forward, tapered through the torso. No excess.</p>
+        </div>
+        <div class="usp-item animate-fade-up" data-delay="4">
+          <div class="usp-icon">🛡</div>
+          <div class="usp-title">Free Returns</div>
+          <p class="usp-body">Zero-risk, zero-hassle. If it's not right, we make it right. Full stop.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% comment %} ── STICKY ATC (bottom bar) ── {% endcomment %}
+  {% if section.settings.featured_product != blank %}
+    {% assign fp = section.settings.featured_product %}
+    <div class="sticky-atc" id="sticky-atc">
+      <div class="sticky-atc__info">
+        <div class="sticky-atc__name">{{ fp.title }}</div>
+        <div class="sticky-atc__price">
+          {{ fp.price | money }}
+          <span data-sticky-size></span>
+        </div>
+      </div>
+      <button
+        class="btn btn-primary"
+        onclick="document.getElementById('tiktok-atc-form').scrollIntoView({behavior:'smooth'})"
+      >
+        Get Yours Now
+      </button>
+    </div>
+  {% endif %}
+
+  {% comment %} ── SOCIAL PROOF NOTIFICATION HOST ── {% endcomment %}
+  <div id="social-proof-notif" aria-live="polite" aria-atomic="true"></div>
+
+</div>
+
+{% schema %}
+{
+  "name": "TikTok Landing Page",
+  "tag": "div",
+  "class": "ncd-tiktok-lp",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Urgency Bar"
+    },
+    {
+      "type": "text",
+      "id": "urgency_bar_text",
+      "label": "Urgency bar message",
+      "default": "Limited Drop — Only 47 Units Left"
+    },
+    {
+      "type": "range",
+      "id": "countdown_hours",
+      "label": "Countdown duration (hours)",
+      "min": 1,
+      "max": 72,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow label",
+      "default": "As Seen on TikTok"
+    },
+    {
+      "type": "textarea",
+      "id": "headline",
+      "label": "Hero headline",
+      "default": "Wear The\nDiscomfort"
+    },
+    {
+      "type": "textarea",
+      "id": "subheadline",
+      "label": "Subheadline",
+      "default": "Premium heavyweight streetwear for men who refuse to settle. Limited run. No restocks."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero background image"
+    },
+    {
+      "type": "url",
+      "id": "hero_video",
+      "label": "Hero background video URL (mp4)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stock",
+      "label": "Show stock indicator on hero",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stock_text",
+      "label": "Stock text",
+      "default": "47 units remaining — selling fast"
+    },
+    {
+      "type": "header",
+      "content": "Hero CTAs"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary CTA label",
+      "default": "Shop the Drop"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_label",
+      "label": "Secondary CTA label (optional)",
+      "default": ""
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_link",
+      "label": "Secondary CTA link"
+    },
+    {
+      "type": "header",
+      "content": "Featured Product"
+    },
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Featured product"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_countdown",
+      "label": "Show countdown timer on product",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_live_viewers",
+      "label": "Show live viewers count",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "base_viewers",
+      "label": "Base viewer count",
+      "default": 47
+    },
+    {
+      "type": "text",
+      "id": "utm_source",
+      "label": "UTM source tag (e.g. tiktok)",
+      "default": "tiktok"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Customer Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review text",
+          "default": "Best hoodie I've ever worn. The weight of it feels premium. Not your average streetwear."
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer name",
+          "default": "Marcus T."
+        },
+        {
+          "type": "text",
+          "id": "reviewer_location",
+          "label": "Location (optional)",
+          "default": "Atlanta, GA"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TikTok Landing Page",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "This hoodie hits different. The fabric is thick, the fit is perfect, and the colorway goes with everything. Stopped a room when I walked in.",
+            "reviewer_name": "Jordan K.",
+            "reviewer_location": "Chicago, IL"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "I've spent $300 on hoodies from bigger brands and this beats every one of them. NCD doesn't play around with quality.",
+            "reviewer_name": "DeShawn R.",
+            "reviewer_location": "Houston, TX"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "Saw it on TikTok, copped it same day. Arrived in 2 days and the packaging alone felt premium. Wearing it everywhere.",
+            "reviewer_name": "Tyler W.",
+            "reviewer_location": "New York, NY"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

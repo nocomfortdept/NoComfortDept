@@ -1,0 +1,57 @@
+{
+  "sections": {
+    "tiktok_landing": {
+      "type": "tiktok-landing",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "review_text": "This hoodie hits different. The fabric is thick, the fit is perfect, and the colorway goes with everything. Stopped a room when I walked in.",
+            "reviewer_name": "Jordan K.",
+            "reviewer_location": "Chicago, IL"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "review_text": "I've spent $300 on hoodies from bigger brands and this beats every one of them. NCD doesn't play around with quality.",
+            "reviewer_name": "DeShawn R.",
+            "reviewer_location": "Houston, TX"
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "review_text": "Saw it on TikTok, copped it same day. Arrived in 2 days and the packaging alone felt premium. Wearing it everywhere.",
+            "reviewer_name": "Tyler W.",
+            "reviewer_location": "New York, NY"
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "review_text": "Been wearing NCD for 6 months now. Every piece holds up and the fits are fire. Not just hype — the quality is real.",
+            "reviewer_name": "Marcus T.",
+            "reviewer_location": "Atlanta, GA"
+          }
+        }
+      },
+      "block_order": ["review_1", "review_2", "review_3", "review_4"],
+      "settings": {
+        "urgency_bar_text": "Limited Drop — Only 47 Units Left",
+        "countdown_hours": 8,
+        "eyebrow_text": "As Seen on TikTok",
+        "headline": "Wear The\nDiscomfort",
+        "subheadline": "Premium heavyweight streetwear for men who refuse to settle. Limited run. No restocks.",
+        "show_stock": true,
+        "stock_text": "47 units remaining — selling fast",
+        "primary_cta_label": "Shop the Drop",
+        "show_product_countdown": true,
+        "show_live_viewers": true,
+        "base_viewers": 47,
+        "utm_source": "tiktok"
+      }
+    }
+  },
+  "order": ["tiktok_landing"]
+}

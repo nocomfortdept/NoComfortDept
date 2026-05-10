@@ -1,0 +1,36 @@
+{% comment %}
+  NoComfortDept — Social Proof Snippet
+  Renders star ratings, review count, and trust marks.
+  Usage: {% render 'social-proof', product: product %}
+{% endcomment %}
+
+{% assign rating = product.metafields.reviews.rating.value | default: 4.9 %}
+{% assign count  = product.metafields.reviews.rating_count.value | default: 247 %}
+
+<div class="ncd-social-proof" style="display:flex; flex-direction:column; gap:6px;">
+
+  {% comment %} Stars + count {% endcomment %}
+  <div style="display:flex; align-items:center; gap:8px;">
+    <div class="review-stars">
+      {% assign full_stars = rating | floor %}
+      {% for i in (1..full_stars) %}★{% endfor %}
+      {% if rating != full_stars %}☆{% endif %}
+    </div>
+    <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--smoke); letter-spacing:0.05em;">
+      {{ rating }} ({{ count }} reviews)
+    </span>
+  </div>
+
+  {% comment %} As-seen-on / press {% endcomment %}
+  {% if product.metafields.custom.press != blank %}
+    <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+      <span class="label">As seen in:</span>
+      {% assign press = product.metafields.custom.press | split: ',' %}
+      {% for outlet in press %}
+        <span style="font-family:var(--font-mono); font-size:0.65rem; color:var(--smoke); letter-spacing:0.1em; text-transform:uppercase;">{{ outlet | strip }}</span>
+        {% unless forloop.last %}<span style="color:var(--graphite);">·</span>{% endunless %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+</div>

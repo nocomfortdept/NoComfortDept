@@ -1,0 +1,376 @@
+{% comment %}
+  NoComfortDept — Enhanced Product Hero Section
+  Drop into product.json template. Replaces default product form section.
+{% endcomment %}
+
+{% assign product = section.settings.product | default: product %}
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<div class="ncd-product-page">
+
+  <div class="product-hero">
+
+    {% comment %} ── LEFT: MEDIA ── {% endcomment %}
+    <div class="product-media-column">
+      <div class="product-media">
+        {% for image in product.images limit: 1 %}
+          <img
+            src="{{ image | img_url: '1200x' }}"
+            alt="{{ image.alt | default: product.title | escape }}"
+            loading="eager"
+            data-zoom-img
+            width="{{ image.width }}"
+            height="{{ image.height }}"
+          >
+        {% else %}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endfor %}
+      </div>
+
+      {% if product.images.size > 1 %}
+        <div class="product-thumbs" style="display:flex; gap:6px; margin-top:6px; overflow-x:auto; padding-bottom:4px;">
+          {% for image in product.images limit: 6 %}
+            <div
+              style="flex-shrink:0; width:80px; height:80px; overflow:hidden; cursor:pointer; border:1px solid {% if forloop.first %}var(--white){% else %}var(--graphite){% endif %};"
+            >
+              <img
+                src="{{ image | img_url: '160x' }}"
+                alt="{{ image.alt | escape }}"
+                loading="lazy"
+                style="width:100%;height:100%;object-fit:cover;"
+              >
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% comment %} ── RIGHT: PRODUCT INFO ── {% endcomment %}
+    <div class="product-info">
+
+      <div class="product-category">{{ product.type | upcase | default: 'NoComfortDept' }}</div>
+
+      <h1 class="product-name">{{ product.title }}</h1>
+
+      {% if product.metafields.custom.tagline != blank %}
+        <p class="product-tagline">{{ product.metafields.custom.tagline }}</p>
+      {% endif %}
+
+      {% comment %} ── Price ── {% endcomment %}
+      <div class="product-price-block" data-sticky-trigger id="price-block">
+        <span class="price-current" id="current-price">
+          {{ current_variant.price | money }}
+        </span>
+        {% if current_variant.compare_at_price > current_variant.price %}
+          <span class="price-compare" id="compare-price">{{ current_variant.compare_at_price | money }}</span>
+          <span class="price-savings" id="savings-badge">
+            SAVE {{ current_variant.compare_at_price | minus: current_variant.price | times: 100 | divided_by: current_variant.compare_at_price }}%
+          </span>
+        {% endif %}
+      </div>
+
+      {% comment %} ── Countdown ── {% endcomment %}
+      {% if section.settings.show_countdown %}
+        <div class="ncd-countdown-row" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <span class="label" style="color:var(--red-hot);">⚡ Sale ends in:</span>
+          <div
+            class="countdown-block"
+            data-countdown="hours"
+            data-countdown-hours="{{ section.settings.countdown_hours }}"
+            id="product-page-cd"
+          >
+            <div class="countdown-unit">
+              <span class="countdown-number" data-cd-hours>--</span>
+              <span class="countdown-label">Hrs</span>
+            </div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-unit">
+              <span class="countdown-number" data-cd-minutes>--</span>
+              <span class="countdown-label">Min</span>
+            </div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-unit">
+              <span class="countdown-number" data-cd-seconds>--</span>
+              <span class="countdown-label">Sec</span>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% comment %} ── Description ── {% endcomment %}
+      <div class="product-description">
+        {{ product.description }}
+      </div>
+
+      {% comment %} ── Features ── {% endcomment %}
+      {% if product.metafields.custom.features != blank %}
+        <ul class="product-features">
+          {% assign features = product.metafields.custom.features | split: '|' %}
+          {% for feat in features %}
+            <li>{{ feat | strip }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% comment %} ── Size Selector ── {% endcomment %}
+      {% unless product.has_only_default_variant %}
+        <div class="ncd-size-block">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;">
+            <span class="label" data-size-hint>Select Size</span>
+            <a href="{{ section.settings.size_guide_link }}" class="label" style="color:var(--gold); text-decoration:none;" target="_blank">
+              Size Guide ↗
+            </a>
+          </div>
+
+          <div class="size-grid" role="group" aria-label="Size">
+            {% for variant in product.variants %}
+              <button
+                class="size-btn{% unless variant.available %} sold-out{% endunless %}{% if variant.inventory_quantity > 0 and variant.inventory_quantity <= 5 %} low-stock{% endif %}"
+                data-size="{{ variant.title }}"
+                data-variant-id="{{ variant.id }}"
+                data-inventory="{{ variant.inventory_quantity | default: 0 }}"
+                {% unless variant.available %}disabled aria-disabled="true" title="Sold out"{% endunless %}
+                aria-selected="false"
+                role="radio"
+              >
+                {{ variant.title }}
+              </button>
+            {% endfor %}
+          </div>
+
+          <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--graphite); margin-top:6px; letter-spacing:0.1em;">
+            ● Low stock &nbsp;⊘ Sold out
+          </p>
+        </div>
+      {% endunless %}
+
+      {% comment %} ── Stock Message ── {% endcomment %}
+      <div class="stock-indicator" data-stock-message id="stock-message">
+        {% if current_variant.available %}
+          {% if current_variant.inventory_quantity <= 5 and current_variant.inventory_quantity > 0 %}
+            <span class="stock-dot stock-dot--red"></span>
+            Only {{ current_variant.inventory_quantity }} left — almost gone
+          {% elsif current_variant.inventory_quantity <= 15 %}
+            <span class="stock-dot stock-dot--yellow"></span>
+            Low stock — {{ current_variant.inventory_quantity }} remaining
+          {% else %}
+            <span class="stock-dot stock-dot--green"></span>
+            In stock — ready to ship
+          {% endif %}
+        {% else %}
+          <span class="stock-dot" style="background:var(--smoke);"></span>
+          Sold out — check back soon
+        {% endif %}
+      </div>
+
+      {% comment %} ── Live Viewers ── {% endcomment %}
+      {% if section.settings.show_viewers %}
+        <div class="social-proof-ticker">
+          <span>👁</span>
+          <span>
+            <strong style="color:var(--white);"><span data-live-views="{{ section.settings.base_viewers }}">{{ section.settings.base_viewers }}</span></strong>
+            people viewing right now
+          </span>
+        </div>
+      {% endif %}
+
+      {% comment %} ── ATC Form ── {% endcomment %}
+      <div id="product-form-wrapper">
+        {% form 'product', product, id: 'ncd-product-form', class: 'ncd-product-form', novalidate: 'novalidate' %}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-input>
+          <input type="hidden" name="quantity" value="1">
+
+          {% if current_variant.available %}
+            <button
+              type="submit"
+              class="btn btn-primary btn-full btn-lg"
+              data-atc-btn
+              id="main-atc-btn"
+            >
+              Add to Cart — {{ current_variant.price | money }}
+            </button>
+          {% else %}
+            <button type="button" class="btn btn-ghost btn-full btn-lg" disabled>
+              Sold Out
+            </button>
+          {% endif %}
+
+          {% comment %} Dynamic checkout (Shop Pay, etc.) {% endcomment %}
+          {{ form | payment_button }}
+        {% endform %}
+      </div>
+
+      {% comment %} ── Trust Strip ── {% endcomment %}
+      <div class="trust-strip" style="border:none; padding:var(--spacing-sm) 0 0; justify-content:flex-start; gap:var(--spacing-lg);">
+        <span class="trust-item"><span class="trust-icon">🔒</span> Secure Checkout</span>
+        <span class="trust-item"><span class="trust-icon">📦</span> Free Returns</span>
+        <span class="trust-item"><span class="trust-icon">⚡</span> Ships in 24h</span>
+      </div>
+
+      {% comment %} ── Metafields blocks ── {% endcomment %}
+      {% if section.settings.show_accordion %}
+        <div class="ncd-accordion" style="border-top:1px solid var(--graphite); margin-top:var(--spacing-md);">
+          {% for block in section.blocks %}
+            {% if block.type == 'accordion' %}
+              <details class="ncd-accordion__item" style="border-bottom:1px solid var(--graphite);" {{ block.shopify_attributes }}>
+                <summary style="
+                  display:flex;
+                  justify-content:space-between;
+                  align-items:center;
+                  padding:16px 0;
+                  cursor:pointer;
+                  font-family:var(--font-mono);
+                  font-size:0.75rem;
+                  letter-spacing:0.15em;
+                  text-transform:uppercase;
+                  color:var(--silver);
+                  list-style:none;
+                ">
+                  {{ block.settings.title }}
+                  <span>+</span>
+                </summary>
+                <div style="padding:0 0 16px; font-size:0.9rem; color:var(--smoke); line-height:1.7;">
+                  {{ block.settings.content }}
+                </div>
+              </details>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+  {% comment %} ── STICKY ATC ── {% endcomment %}
+  <div class="sticky-atc" id="sticky-atc">
+    <div class="sticky-atc__info">
+      <div class="sticky-atc__name">{{ product.title | truncate: 40 }}</div>
+      <div class="sticky-atc__price">
+        {{ current_variant.price | money }}
+        <span data-sticky-size></span>
+      </div>
+    </div>
+    {% if current_variant.available %}
+      <button
+        class="btn btn-primary"
+        onclick="
+          var form = document.getElementById('ncd-product-form');
+          if (form) form.scrollIntoView({behavior:'smooth'});
+        "
+      >
+        Add to Cart
+      </button>
+    {% else %}
+      <button class="btn btn-ghost" disabled>Sold Out</button>
+    {% endif %}
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Product Hero",
+  "tag": "div",
+  "class": "ncd-product-hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Countdown Timer"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_countdown",
+      "label": "Show sale countdown",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "countdown_hours",
+      "label": "Countdown duration (hours)",
+      "min": 1,
+      "max": 72,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Social Proof"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_viewers",
+      "label": "Show live viewer count",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "base_viewers",
+      "label": "Base viewer count",
+      "default": 34
+    },
+    {
+      "type": "header",
+      "content": "Options"
+    },
+    {
+      "type": "url",
+      "id": "size_guide_link",
+      "label": "Size guide link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_accordion",
+      "label": "Show accordion blocks",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Details & Materials"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>400gsm heavyweight cotton blend. Pre-shrunk. Reinforced seams. Built to last.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Hero",
+      "blocks": [
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "Materials & Construction",
+            "content": "<p>400gsm heavyweight cotton blend. Garment-washed for lived-in softness. Reinforced double-needle stitching at stress points. Pre-shrunk for consistent sizing wash after wash.</p>"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "Sizing & Fit",
+            "content": "<p>Shoulder-forward fit. Structured through the chest and tapered through the body. If between sizes, size up for a relaxed silhouette.</p>"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "Shipping & Returns",
+            "content": "<p>Orders ship within 24 hours. Free returns within 30 days. Exchanges always free on us.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

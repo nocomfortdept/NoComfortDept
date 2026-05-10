@@ -1,0 +1,97 @@
+{% comment %}
+  NoComfortDept — Announcement Bar (scrolling marquee)
+{% endcomment %}
+
+{% unless section.settings.hide_bar %}
+  <div class="announcement-bar" role="complementary" aria-label="Announcements">
+    <div class="announcement-track">
+      {% for block in section.blocks %}
+        {% if block.type == 'message' %}
+          <span class="announcement-item" {{ block.shopify_attributes }}>
+            {% if block.settings.icon != blank %}{{ block.settings.icon }}{% endif %}
+            {{ block.settings.text }}
+            <span class="sep">◆</span>
+          </span>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endunless %}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "tag": "div",
+  "class": "ncd-announcement",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "hide_bar",
+      "label": "Hide announcement bar",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon / Emoji",
+          "default": "⚡"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Message text",
+          "default": "Free shipping on orders over $100"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar",
+      "blocks": [
+        {
+          "type": "message",
+          "settings": {
+            "icon": "⚡",
+            "text": "Limited Drop — While Supplies Last"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "icon": "📦",
+            "text": "Free Shipping on Orders $100+"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "icon": "🔄",
+            "text": "Free Returns — No Questions"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "icon": "✦",
+            "text": "400gsm Premium Heavyweight Cotton"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "icon": "🛡",
+            "text": "Secure Checkout — Encrypted"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

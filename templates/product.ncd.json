@@ -1,0 +1,83 @@
+{
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "blocks": {
+        "msg_1": {
+          "type": "message",
+          "settings": {
+            "icon": "⚡",
+            "text": "Limited Drop — While Supplies Last"
+          }
+        },
+        "msg_2": {
+          "type": "message",
+          "settings": {
+            "icon": "📦",
+            "text": "Free Shipping on Orders $100+"
+          }
+        },
+        "msg_3": {
+          "type": "message",
+          "settings": {
+            "icon": "🔄",
+            "text": "Free Returns — No Questions Asked"
+          }
+        },
+        "msg_4": {
+          "type": "message",
+          "settings": {
+            "icon": "✦",
+            "text": "400gsm Premium Heavyweight Cotton"
+          }
+        }
+      },
+      "block_order": ["msg_1", "msg_2", "msg_3", "msg_4"],
+      "settings": {
+        "hide_bar": false
+      }
+    },
+    "product_hero": {
+      "type": "product-hero",
+      "blocks": {
+        "accord_1": {
+          "type": "accordion",
+          "settings": {
+            "title": "Materials & Construction",
+            "content": "<p>400gsm heavyweight cotton blend. Garment-washed for lived-in softness from day one. Reinforced double-needle stitching at every stress point. Pre-shrunk for consistent sizing wash after wash.</p>"
+          }
+        },
+        "accord_2": {
+          "type": "accordion",
+          "settings": {
+            "title": "Sizing & Fit",
+            "content": "<p>Shoulder-forward construction with structured chest and tapered body. True-to-size. If you're between sizes, go up for a relaxed silhouette.</p>"
+          }
+        },
+        "accord_3": {
+          "type": "accordion",
+          "settings": {
+            "title": "Shipping & Returns",
+            "content": "<p>All orders ship within 24 hours. Free returns within 30 days — no questions asked. Exchanges are always free. We stand behind every piece.</p>"
+          }
+        },
+        "accord_4": {
+          "type": "accordion",
+          "settings": {
+            "title": "Care Instructions",
+            "content": "<p>Machine wash cold, inside out. Tumble dry low or hang dry. Do not bleach. Iron low if needed. The weight holds its shape — treat it right and it lasts years.</p>"
+          }
+        }
+      },
+      "block_order": ["accord_1", "accord_2", "accord_3", "accord_4"],
+      "settings": {
+        "show_countdown": true,
+        "countdown_hours": 6,
+        "show_viewers": true,
+        "base_viewers": 34,
+        "show_accordion": true
+      }
+    }
+  },
+  "order": ["announcement", "product_hero"]
+}
