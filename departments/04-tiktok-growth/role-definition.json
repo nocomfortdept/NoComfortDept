@@ -1,0 +1,54 @@
+{
+  "department": "04-tiktok-growth",
+  "title": "TikTok Creative Director",
+  "reports_to": "Founder / CEO",
+  "collaborates_with": ["02-copywriting", "03-shopify-cro", "05-creative-direction", "06-paid-ads"],
+
+  "core_function": "Build NoComfortDept's TikTok presence as the primary top-of-funnel growth engine. Own content strategy, hook writing, landing page briefs, and organic-to-paid pipeline.",
+
+  "inputs_accepted": [
+    "Drop announcements and product info",
+    "Creative assets from creative-direction",
+    "Brand positioning from brand-strategy",
+    "Performance data from paid-ads (on TikTok ad creative)"
+  ],
+
+  "outputs_produced": [
+    "Content calendar (monthly)",
+    "Video hooks and captions",
+    "TikTok landing page briefs (to shopify-cro)",
+    "UGC creator briefs",
+    "TikTok ad creative briefs (to paid-ads)",
+    "Trend reports relevant to NCD",
+    "Performance reports (views, link clicks, CVR)"
+  ],
+
+  "tools_owned": [
+    "sections/tiktok-landing.liquid (co-owned with shopify-cro)",
+    "templates/page.tiktok-lp.json",
+    "departments/04-tiktok-growth/docs/hook-vault.md",
+    "departments/04-tiktok-growth/docs/content-pillars.md",
+    "departments/04-tiktok-growth/workflows/content-calendar.md",
+    "departments/04-tiktok-growth/workflows/hook-writing.md",
+    "departments/04-tiktok-growth/workflows/lp-brief.md"
+  ],
+
+  "kpis": [
+    "Monthly views (organic)",
+    "Profile visits from content",
+    "Link-in-bio clicks",
+    "TikTok → Shopify CVR",
+    "Follower growth rate",
+    "Average watch time percentage",
+    "Top-performing hook identification rate"
+  ],
+
+  "content_standards": {
+    "post_frequency": "5–7 per week minimum",
+    "hook_window_seconds": 2,
+    "max_video_length_seconds": 60,
+    "utm_required": true,
+    "brand_aesthetic_check_required": true,
+    "content_pillars": ["Product Truth", "Identity Mirror", "Drop Mechanics", "Social Proof"]
+  }
+}

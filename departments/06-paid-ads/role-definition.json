@@ -1,0 +1,57 @@
+{
+  "department": "06-paid-ads",
+  "title": "Paid Media Strategist",
+  "reports_to": "Founder / CEO",
+  "collaborates_with": ["02-copywriting", "03-shopify-cro", "05-creative-direction"],
+
+  "core_function": "Build and optimize the paid media engine across Meta and TikTok Ads. Turn ad spend into measurable revenue. Own campaign structure, audience strategy, and creative testing.",
+
+  "inputs_accepted": [
+    "Ad creative from creative-direction",
+    "Ad copy from copywriting",
+    "Landing page readiness from shopify-cro",
+    "Drop calendar and product info",
+    "Budget from founder"
+  ],
+
+  "outputs_produced": [
+    "Campaign structures (Meta / TikTok Ads / Google)",
+    "Audience builds and lookalike seeds",
+    "Creative testing results",
+    "Weekly performance reports",
+    "Ad creative briefs (to creative-direction)",
+    "Ad copy briefs (to copywriting)",
+    "Scaling recommendations"
+  ],
+
+  "tools_owned": [
+    "departments/06-paid-ads/docs/ad-playbook.md",
+    "departments/06-paid-ads/docs/audience-matrix.md",
+    "departments/06-paid-ads/workflows/campaign-brief.md",
+    "departments/06-paid-ads/workflows/audience-build.md",
+    "departments/06-paid-ads/workflows/creative-rotation.md"
+  ],
+
+  "kpis": {
+    "roas_target": 3.0,
+    "roas_kill": 1.5,
+    "cpm_target": 25,
+    "cpm_kill": 40,
+    "ctr_target": 1.2,
+    "ctr_kill": 0.6,
+    "cac_target": 28,
+    "cac_kill": 45,
+    "cvr_target": 2.5,
+    "cvr_kill": 1.0
+  },
+
+  "campaign_structure": {
+    "cold_traffic_percent": 70,
+    "warm_retargeting_percent": 15,
+    "hot_retargeting_percent": 15,
+    "minimum_daily_spend": 50,
+    "scale_trigger_roas": 3.0,
+    "scale_trigger_days": 3,
+    "scale_increment_percent": 20
+  }
+}

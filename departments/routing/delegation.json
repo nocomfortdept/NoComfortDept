@@ -1,0 +1,89 @@
+{
+  "description": "Defines how tasks are delegated between departments, approval chains, and hand-off protocols.",
+
+  "task_lifecycle": [
+    "INTAKE      → Task received, routed via router.js",
+    "BRIEFED     → Lead department receives brief and loads system-prompt",
+    "IN-PROGRESS → Department works the task using its workflows",
+    "REVIEW      → Output reviewed against brand-strategy guidelines",
+    "HANDOFF     → Output passed to next department if collaboration needed",
+    "DELIVERED   → Final output returned"
+  ],
+
+  "handoff_protocols": {
+    "copywriting → shopify-cro": {
+      "trigger": "copy delivered for product page",
+      "handoff_file": "departments/03-shopify-cro/workflows/product-page-audit.md",
+      "note": "CRO implements copy into Liquid section and optimizes layout"
+    },
+    "creative-direction → copywriting": {
+      "trigger": "creative brief approved",
+      "handoff_file": "departments/02-copywriting/workflows/product-copy.md",
+      "note": "Copywriter writes to the visual direction, not the other way around"
+    },
+    "brand-strategy → all": {
+      "trigger": "brand audit or repositioning",
+      "handoff_file": "departments/01-brand-strategy/docs/brand-bible.md",
+      "note": "All departments re-calibrate after a brand-strategy output"
+    },
+    "tiktok-growth → shopify-cro": {
+      "trigger": "TikTok landing page needed",
+      "handoff_file": "departments/03-shopify-cro/workflows/lp-brief.md",
+      "note": "TikTok Creative Director writes brief; CRO builds in Liquid"
+    },
+    "paid-ads → copywriting": {
+      "trigger": "ad creative brief approved",
+      "handoff_file": "departments/02-copywriting/workflows/ad-copy.md",
+      "note": "Copywriter delivers primary text, headline, description per format"
+    },
+    "retention-email → copywriting": {
+      "trigger": "email flow structure approved",
+      "handoff_file": "departments/02-copywriting/workflows/email-copy.md",
+      "note": "Copywriter fills email body copy to flow skeleton"
+    }
+  },
+
+  "approval_gates": [
+    {
+      "gate": "brand-voice-check",
+      "description": "All copy output must pass brand voice check before delivery",
+      "enforcer": "brand-strategy",
+      "reference": "departments/01-brand-strategy/docs/brand-bible.md"
+    },
+    {
+      "gate": "cro-readiness-check",
+      "description": "All Shopify changes must pass CRO readiness before going live",
+      "enforcer": "shopify-cro",
+      "reference": "departments/03-shopify-cro/docs/cro-playbook.md"
+    },
+    {
+      "gate": "creative-alignment-check",
+      "description": "All visual assets must align with creative direction before use",
+      "enforcer": "creative-direction",
+      "reference": "departments/05-creative-direction/docs/visual-standards.md"
+    }
+  ],
+
+  "priority_matrix": {
+    "P1_immediate": {
+      "description": "Revenue-impacting issues — site down, checkout broken, drop launch",
+      "route_to": "shopify-cro",
+      "sla": "same session"
+    },
+    "P2_urgent": {
+      "description": "Active campaign issues — ad copy needed, TikTok video going live",
+      "route_to": "paid-ads OR tiktok-growth",
+      "sla": "within 2 tasks"
+    },
+    "P3_standard": {
+      "description": "Standard deliverables — product copy, email flows, creative briefs",
+      "route_to": "per routing-rules.json",
+      "sla": "normal queue"
+    },
+    "P4_evergreen": {
+      "description": "Non-urgent — brand strategy, documentation, process refinement",
+      "route_to": "brand-strategy",
+      "sla": "flexible"
+    }
+  }
+}

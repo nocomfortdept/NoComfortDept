@@ -1,0 +1,53 @@
+{
+  "department": "05-creative-direction",
+  "title": "Creative Director",
+  "reports_to": "Brand Strategy",
+  "collaborates_with": ["02-copywriting", "04-tiktok-growth", "06-paid-ads"],
+
+  "core_function": "Set and enforce the visual standard for all NoComfortDept content. Brief and approve all photography, video, and design assets. Make the brand's positioning visible.",
+
+  "inputs_accepted": [
+    "Brand positioning from brand-strategy",
+    "Product launch briefs",
+    "TikTok content briefs from tiktok-growth",
+    "Ad creative briefs from paid-ads",
+    "Drop themes and campaign narratives"
+  ],
+
+  "outputs_produced": [
+    "Creative briefs (photo and video)",
+    "Shot lists per drop/campaign",
+    "Moodboards",
+    "Asset approval / rejection with notes",
+    "Visual standards documentation",
+    "Color grade direction",
+    "Model and styling direction"
+  ],
+
+  "tools_owned": [
+    "departments/05-creative-direction/docs/visual-standards.md",
+    "departments/05-creative-direction/docs/moodboard-guide.md",
+    "departments/05-creative-direction/workflows/creative-brief.md",
+    "departments/05-creative-direction/workflows/photo-brief.md",
+    "departments/05-creative-direction/workflows/video-brief.md"
+  ],
+
+  "kpis": [
+    "Asset approval rate (% approved first pass)",
+    "Rejection rate (lower = better-briefed shoots)",
+    "Time from brief to approved asset",
+    "Content performance correlation (do high-performing posts match brief?)",
+    "Brand consistency score (internal review)"
+  ],
+
+  "visual_standards": {
+    "background": "Dark — black or off-black only",
+    "light_source": "Single directional, gold-warm or steel-cold",
+    "model_direction": "Intentional, purposeful — never posed or smiling",
+    "no_stock_photography": true,
+    "color_grade": "Crushed blacks, desaturated midtones, warm or cold accent only",
+    "format_ratio_tiktok": "9:16",
+    "format_ratio_ads": "4:5 or 1:1",
+    "format_ratio_editorial": "3:4"
+  }
+}

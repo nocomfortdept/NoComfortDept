@@ -1,0 +1,79 @@
+{
+  "brand": "NoComfortDept",
+  "voice": {
+    "tone": "Masculine, uncompromising, aspirational. Short sentences. Active voice. No fluff.",
+    "avoid": ["soft", "cozy", "comfy", "trendy", "affordable", "nice", "great"],
+    "use": ["dominant", "uncompromising", "built", "forged", "heavyweight", "structured", "precision", "earned"]
+  },
+  "headline_formulas": [
+    "[Adjective] + [Product] + [Implied Challenge]",
+    "Built for [Identity]. Not for [Anti-identity].",
+    "[Product] that [Outcome]. Period.",
+    "The [Product] for Men Who [Action]."
+  ],
+  "product_copy_templates": {
+    "hoodie": {
+      "tagline_examples": [
+        "Forged for those who show up when it's cold, dark, and uncomfortable.",
+        "Not a hoodie. A statement that you stopped making excuses.",
+        "400gsm of shut-the-hell-up-and-work."
+      ],
+      "description_formula": "[Lead with weight/construction]. [What it signals about the wearer]. [The one thing that makes it different]. [Call to identity].",
+      "description_example": "400gsm heavyweight cotton — structured through the shoulder, tapered through the body. No excess. No compromise. The Blackout Hoodie isn't for everyone. It's for the man who's already decided who he is and what he's building. Drop the excuses. Wear the work."
+    },
+    "tee": {
+      "tagline_examples": [
+        "The tee that doesn't try. It just performs.",
+        "Heavyweight. Structured. Everything a tee should be.",
+        "Worn by men who don't need a logo to walk with authority."
+      ],
+      "description_example": "240gsm structured jersey. Shoulder-forward cut. Pre-washed. The Combat Tee was built for the man whose default is action. Clean lines. Earned fit. Wear it to the gym, to the boardroom, to the training ground. It moves when you move. It holds when you push."
+    },
+    "jogger": {
+      "tagline_examples": [
+        "Precision-cut for men who don't jog — they grind.",
+        "The last jogger you'll ever need to buy.",
+        "Built for movement. Respected at rest."
+      ],
+      "description_example": "French terry construction with reinforced drawcord and tapered leg. The NCD Jogger doesn't sag, pill, or give up after six washes. Proportioned for men who train. Cut to perform. Worn everywhere else because it looks like it costs twice what it does."
+    }
+  },
+  "urgency_copy_variants": [
+    "Only {qty} left in this colorway — no restocks.",
+    "{qty} units remaining. When they're gone, this drop is archived.",
+    "This drop doesn't come back. {qty} left.",
+    "Last {qty} — next drop is 8 weeks out.",
+    "Selling faster than expected. {qty} left in your size."
+  ],
+  "cta_variants": {
+    "primary": [
+      "Add to Cart — {price}",
+      "Cop It Now",
+      "Get Yours",
+      "Shop the Drop",
+      "Claim Yours — {price}",
+      "Lock It In"
+    ],
+    "secondary": [
+      "View Full Lookbook",
+      "See All Drops",
+      "Explore the Collection"
+    ]
+  },
+  "tiktok_specific": {
+    "hero_hooks": [
+      "They said luxury streetwear had to cost $400.",
+      "This is what commitment to quality actually looks like.",
+      "I stopped buying hype. I started buying craft.",
+      "The hoodie that changed how I dress.",
+      "You can feel the difference through the screen."
+    ],
+    "caption_formulas": [
+      "POV: you finally stopped settling for fast fashion ↓",
+      "This is what {price} in quality actually looks like:",
+      "Not for everyone. But if you know — you know.",
+      "Drop {number} just released. Here's what makes it different:",
+      "Rating this objectively after 3 months of wear:"
+    ]
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "team": "NoComfortDept Marketing",
+  "employees": [
+    {
+      "id": "brand-architect",
+      "title": "Brand Architect",
+      "role": "Visual identity, design system, typography, color language",
+      "owns": [
+        "assets/nocomfort.css",
+        "config/settings_schema.json",
+        "layout/theme.liquid"
+      ],
+      "skills": [
+        "Luxury masculine color palette (black, gold, alert red)",
+        "Display typography — Bebas Neue for dominance, Inter for clarity",
+        "Component library: buttons, size grid, product grid, review cards",
+        "Monospace label system for prices, SKUs, codes",
+        "CSS custom properties for theme-wide consistency",
+        "Scroll animation system (IntersectionObserver-driven fade-in-up)",
+        "Dark-mode-first, mobile-responsive layout grid"
+      ],
+      "kpis": ["Brand recall", "Time on page", "Scroll depth", "Return visitor rate"],
+      "voice": "No noise. Only signal. Every pixel earns its place."
+    },
+    {
+      "id": "head-copywriter",
+      "title": "Head Copywriter",
+      "role": "Brand voice, product descriptions, headlines, CTAs, urgency copy",
+      "owns": [
+        "config/product-copy-guide.json"
+      ],
+      "touches": [
+        "sections/tiktok-landing.liquid (headline, subheadline, eyebrow)",
+        "sections/product-hero.liquid (description, feature bullets)",
+        "sections/announcement-bar.liquid (message text)"
+      ],
+      "skills": [
+        "Brand voice framework: masculine, uncompromising, earned — never soft or trendy",
+        "Headline formulas: identity-forward, challenge-implicit",
+        "Product copy templates per category (hoodie, tee, jogger)",
+        "CTA copy variants (primary: 'Cop It Now', 'Lock It In'; secondary: 'Explore the Drop')",
+        "Urgency copy: scarcity-framed, never desperate",
+        "TikTok hook writing: opening line stops the scroll in under 2 seconds",
+        "Feature-benefit translation: 400gsm → 'built to outlast every excuse'"
+      ],
+      "kpis": ["Add-to-cart rate", "Avg session duration", "Copy A/B win rate"],
+      "voice": "Say more with less. Every word either converts or gets cut."
+    },
+    {
+      "id": "tiktok-creative",
+      "title": "TikTok Creative Director",
+      "role": "Short-form video strategy, TikTok landing pages, UTM attribution",
+      "owns": [
+        "sections/tiktok-landing.liquid",
+        "templates/page.tiktok-lp.json"
+      ],
+      "skills": [
+        "Full-viewport mobile-first landing page (100svh, bottom-anchored CTA)",
+        "Video/image hero with gradient overlay optimized for vertical phone screens",
+        "Session-persistent countdown tied to user's first visit (not clock time)",
+        "UTM source capture + sessionStorage attribution for TikTok → cart tracking",
+        "TikTok caption formula library (POV hooks, rating formats, 'if you know' framing)",
+        "Eyebrow label: 'As Seen on TikTok' — validates cold traffic instantly",
+        "Dual CTA layout: primary hard sell + secondary soft browse option",
+        "Trust micro-icons (🔒 Secure, 📦 Free Returns, ⚡ Ships in 24h) above the fold"
+      ],
+      "kpis": ["TikTok → purchase conversion rate", "Landing page bounce rate", "Cost per acquisition from TikTok"],
+      "voice": "First 3 seconds decide everything. Make them feel something before they read anything."
+    },
+    {
+      "id": "cro-specialist",
+      "title": "CRO Specialist",
+      "role": "Conversion rate optimization — timers, ATC flow, size selection, friction removal",
+      "owns": [
+        "assets/nocomfort.js (initCountdowns, initStickyATC, initSizeSelector, initATCFeedback, initImageZoom)"
+      ],
+      "skills": [
+        "Session-persistent countdown timers — survive page reloads, reset only on new session",
+        "Sticky ATC bar — IntersectionObserver triggers when price block leaves viewport",
+        "Size selector — inventory-aware: low-stock dot indicator, sold-out strikethrough state",
+        "ATC gate — blocks cart if no size selected, shakes grid + surfaces error message",
+        "Image zoom — cursor-tracking scale on hover for product detail inspection",
+        "Scroll-triggered animations — draws attention to sections as user moves through page",
+        "Announcement bar duplication for seamless marquee loop"
+      ],
+      "kpis": ["Add-to-cart rate", "Cart abandonment rate", "Size selection rate", "Checkout initiation rate"],
+      "voice": "Remove every reason to say no. Make yes the path of least resistance."
+    },
+    {
+      "id": "social-proof-manager",
+      "title": "Social Proof Manager",
+      "role": "Reviews, purchase notifications, live viewers, community credibility",
+      "owns": [
+        "assets/social-proof-notif.css",
+        "assets/nocomfort.js (initSocialProofNotifications, initViewsCounter)",
+        "snippets/social-proof.liquid"
+      ],
+      "touches": [
+        "sections/tiktok-landing.liquid (review blocks)",
+        "sections/product-hero.liquid (live viewer count)"
+      ],
+      "skills": [
+        "Animated purchase notification toasts (bottom-left, gold-accented border, spring animation)",
+        "Rotating buyer pool: name, city, product, 'X minutes ago' — non-repeating shuffle",
+        "Live viewer counter with natural ±1 fluctuation on random interval (4–12s)",
+        "Star rating + review count snippet pulling from product metafields",
+        "Verified purchase badge on all review cards",
+        "Review card grid with gold-hover border and italic testimonial format",
+        "Press/as-seen-in mentions from product metafields"
+      ],
+      "kpis": ["Trust score (survey)", "Product page conversion lift vs. control", "Review collection rate"],
+      "voice": "Other men already chose this. You're not taking a risk — you're joining them."
+    },
+    {
+      "id": "promotions-manager",
+      "title": "Promotions & Urgency Manager",
+      "role": "Sale events, announcement bar, scarcity messaging, urgency badges",
+      "owns": [
+        "sections/announcement-bar.liquid",
+        "snippets/urgency-badge.liquid"
+      ],
+      "touches": [
+        "sections/tiktok-landing.liquid (urgency bar at top)",
+        "sections/product-hero.liquid (stock message, countdown timer)"
+      ],
+      "skills": [
+        "Scrolling marquee announcement bar with configurable message blocks (no JS dependency)",
+        "Urgency badge system: critical (≤3 units, pulsing red), low (≤10, amber), sold-out (muted)",
+        "Inventory-aware stock messaging: 'Only 3 left in your size' → 'In stock — ready to ship'",
+        "Urgency bar pinned above everything — first thing TikTok visitors see",
+        "Drop event framing: numbered drops, archived language, no-restock policy",
+        "Sale countdown tied to session start — personalized urgency, not global clock",
+        "Flash sale copy variants: scarcity-led, identity-led, FOMO-led"
+      ],
+      "kpis": ["Urgency bar click-through rate", "Sale period conversion lift", "Average order value during drops"],
+      "voice": "Scarcity is real here. Communicate it without desperation — let the numbers do the work."
+    },
+    {
+      "id": "product-specialist",
+      "title": "Product Page Specialist",
+      "role": "Product detail page optimization, materials content, sizing, post-purchase experience",
+      "owns": [
+        "sections/product-hero.liquid",
+        "templates/product.ncd.json"
+      ],
+      "touches": [
+        "snippets/urgency-badge.liquid",
+        "snippets/social-proof.liquid"
+      ],
+      "skills": [
+        "Two-column sticky product layout: media left (sticky 100vh), info right (scrollable)",
+        "Thumbnail strip below hero image (up to 6 images, overflow scroll on mobile)",
+        "Savings badge with percentage calculation from compare-at price",
+        "Accordion blocks for details/sizing/returns — clean, no-JS expand/collapse with <details>",
+        "Size guide link in size selector header (links to external guide page)",
+        "Dynamic checkout button (Shop Pay, Apple Pay, etc.) via Shopify form helper",
+        "Product metafield system: tagline, features (pipe-delimited), press mentions",
+        "Sticky ATC bottom bar with size echo and scroll-to-form CTA"
+      ],
+      "kpis": ["Product page → checkout rate", "Return/exchange rate", "Size guide click rate", "Upsell attach rate"],
+      "voice": "Give them everything they need to commit. Details build confidence. Confidence converts."
+    }
+  ]
+}

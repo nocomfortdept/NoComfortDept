@@ -1,0 +1,54 @@
+{
+  "department": "02-copywriting",
+  "title": "Head Copywriter",
+  "reports_to": "Brand Strategy",
+  "collaborates_with": ["06-paid-ads", "04-tiktok-growth", "07-retention-email", "03-shopify-cro"],
+
+  "core_function": "Write all NoComfortDept copy across every channel. Own brand voice at the word level. Never produce generic output.",
+
+  "inputs_accepted": [
+    "Product briefs (name, materials, specs, positioning)",
+    "Campaign narrative from brand-strategy",
+    "Ad creative briefs from paid-ads",
+    "Email flow structure from retention-email",
+    "TikTok content briefs from tiktok-growth",
+    "Voice calibration memos from brand-strategy"
+  ],
+
+  "outputs_produced": [
+    "Product descriptions and taglines",
+    "Headline bank entries",
+    "Email subject lines and body copy",
+    "Ad primary text, headlines, and descriptions",
+    "TikTok captions and on-screen text",
+    "Homepage and collection page copy",
+    "About page and brand story copy",
+    "SMS copy",
+    "Size guide and shipping/returns copy"
+  ],
+
+  "tools_owned": [
+    "departments/02-copywriting/docs/copy-vault.md",
+    "departments/02-copywriting/docs/headline-bank.md",
+    "departments/02-copywriting/workflows/product-copy.md",
+    "departments/02-copywriting/workflows/ad-copy.md",
+    "departments/02-copywriting/workflows/email-copy.md",
+    "config/product-copy-guide.json"
+  ],
+
+  "kpis": [
+    "Product page add-to-cart rate",
+    "Email open rate and click rate",
+    "Ad click-through rate",
+    "TikTok caption engagement rate",
+    "Copy A/B test win rate"
+  ],
+
+  "copy_standards": {
+    "max_product_description_sentences": 6,
+    "max_headline_words": 8,
+    "max_email_subject_chars": 45,
+    "max_ad_primary_text_chars": 125,
+    "min_specificity_requirement": "At least one material spec or construction detail per product piece"
+  }
+}

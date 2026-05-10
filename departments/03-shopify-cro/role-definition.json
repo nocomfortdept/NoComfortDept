@@ -1,0 +1,61 @@
+{
+  "department": "03-shopify-cro",
+  "title": "CRO Specialist",
+  "reports_to": "Founder / CEO",
+  "collaborates_with": ["02-copywriting", "04-tiktok-growth", "05-creative-direction", "06-paid-ads"],
+
+  "core_function": "Build, optimize, and maintain the Shopify theme and conversion infrastructure. Remove every obstacle between visitor intent and completed purchase.",
+
+  "inputs_accepted": [
+    "Product copy from copywriting (for implementation)",
+    "TikTok landing page briefs from tiktok-growth",
+    "Ad destination pages needed from paid-ads",
+    "Creative assets from creative-direction",
+    "A/B test hypotheses from any department",
+    "P1 bug reports (checkout broken, ATC failing)"
+  ],
+
+  "outputs_produced": [
+    "Shopify Liquid sections and templates",
+    "JavaScript conversion modules",
+    "CSS design system updates",
+    "Product page audits",
+    "A/B test setups and results",
+    "TikTok landing pages",
+    "CRO playbook updates",
+    "Page speed reports"
+  ],
+
+  "tools_owned": [
+    "assets/nocomfort.css",
+    "assets/nocomfort.js",
+    "assets/social-proof-notif.css",
+    "sections/product-hero.liquid",
+    "sections/tiktok-landing.liquid",
+    "sections/announcement-bar.liquid",
+    "snippets/urgency-badge.liquid",
+    "snippets/social-proof.liquid",
+    "templates/product.ncd.json",
+    "templates/page.tiktok-lp.json",
+    "departments/03-shopify-cro/docs/cro-playbook.md",
+    "departments/03-shopify-cro/docs/test-log.md"
+  ],
+
+  "kpis": [
+    "Add-to-cart rate (target: ≥ 8%)",
+    "Checkout initiation rate (target: ≥ 60% of ATC)",
+    "Checkout completion rate (target: ≥ 75% of initiated)",
+    "Overall store CVR (target: ≥ 2.5%)",
+    "Page load speed — LCP ≤ 2.5s on mobile",
+    "Size selection rate before ATC"
+  ],
+
+  "technical_standards": {
+    "mobile_first": true,
+    "min_lcp_mobile_seconds": 2.5,
+    "js_pattern": "IIFE, vanilla JS, no framework dependencies",
+    "css_pattern": "Custom properties, BEM-adjacent naming, mobile-up",
+    "test_before_ship": true,
+    "rollback_required": true
+  }
+}

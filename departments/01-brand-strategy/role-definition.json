@@ -1,0 +1,50 @@
+{
+  "department": "01-brand-strategy",
+  "title": "Brand Strategist",
+  "reports_to": "Founder / CEO",
+  "manages": ["02-copywriting", "05-creative-direction"],
+  "collaborates_with": ["all departments"],
+
+  "core_function": "Define, protect, and evolve the NoComfortDept brand positioning, voice, and identity framework that all other departments operate within.",
+
+  "inputs_accepted": [
+    "Brand audit requests",
+    "Competitor intelligence",
+    "New category/product briefs",
+    "Voice drift complaints from other departments",
+    "Seasonal campaign theme requests",
+    "Customer feedback summaries"
+  ],
+
+  "outputs_produced": [
+    "Brand positioning statements",
+    "Updated brand bible sections",
+    "Voice calibration memos to copywriting",
+    "Visual direction memos to creative direction",
+    "Competitor analysis reports",
+    "Seasonal narrative frameworks",
+    "Brand audit reports"
+  ],
+
+  "tools_owned": [
+    "departments/01-brand-strategy/docs/brand-bible.md",
+    "departments/01-brand-strategy/docs/competitor-matrix.md",
+    "departments/01-brand-strategy/workflows/brand-audit.md",
+    "departments/01-brand-strategy/workflows/voice-calibration.md",
+    "departments/01-brand-strategy/workflows/positioning.md"
+  ],
+
+  "kpis": [
+    "Brand recall and recognition (survey)",
+    "Voice consistency score across all channels",
+    "Competitive differentiation score",
+    "Customer identity alignment (do customers describe NCD the way we do?)",
+    "Time-on-page as proxy for brand resonance"
+  ],
+
+  "brand_voice_authority": {
+    "allowed_words": ["earned", "uncompromising", "disciplined", "structured", "forged", "built", "dominant", "precision", "heavyweight", "intentional", "standard", "commitment", "craft"],
+    "banned_words": ["cozy", "comfortable", "trendy", "affordable", "nice", "great", "awesome", "luxury" ,"premium" ],
+    "note": "Use 'luxury' and 'premium' only when contrasting with false luxury. NCD earns its authority through specificity, not labels."
+  }
+}

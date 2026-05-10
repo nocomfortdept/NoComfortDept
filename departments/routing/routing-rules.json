@@ -1,0 +1,110 @@
+{
+  "version": "1.0",
+  "brand": "NoComfortDept",
+  "description": "Task routing rules — maps incoming task keywords and types to the correct department.",
+
+  "departments": {
+    "01-brand-strategy":    { "id": "brand-strategy",    "label": "Brand Strategy",      "lead": "Brand Strategist"       },
+    "02-copywriting":       { "id": "copywriting",        "label": "Copywriting",          "lead": "Head Copywriter"         },
+    "03-shopify-cro":       { "id": "shopify-cro",        "label": "Shopify CRO",          "lead": "CRO Specialist"          },
+    "04-tiktok-growth":     { "id": "tiktok-growth",      "label": "TikTok Growth",        "lead": "TikTok Creative Director"},
+    "05-creative-direction":{ "id": "creative-direction", "label": "Creative Direction",   "lead": "Creative Director"       },
+    "06-paid-ads":          { "id": "paid-ads",           "label": "Paid Ads",             "lead": "Paid Media Strategist"   },
+    "07-retention-email":   { "id": "retention-email",    "label": "Retention & Email",    "lead": "Retention Strategist"    }
+  },
+
+  "keyword_routes": {
+    "brand-strategy": [
+      "brand voice", "brand identity", "positioning", "brand audit", "tone of voice",
+      "brand pillars", "brand strategy", "competitor analysis", "market positioning",
+      "brand guidelines", "visual identity", "brand direction", "who are we",
+      "what does NCD stand for", "brand story", "mission", "values"
+    ],
+    "copywriting": [
+      "product description", "copy", "headline", "write", "tagline", "CTA",
+      "call to action", "product copy", "description", "about page", "homepage copy",
+      "collection copy", "sales copy", "copywriting", "words", "text", "messaging",
+      "product page text", "SEO copy", "meta description"
+    ],
+    "shopify-cro": [
+      "conversion", "CRO", "add to cart", "ATC rate", "checkout", "product page",
+      "page speed", "funnel", "A/B test", "split test", "bounce rate", "heat map",
+      "UX", "user experience", "shopify", "theme", "section", "liquid", "template",
+      "size selector", "sticky ATC", "countdown", "urgency", "stock", "inventory"
+    ],
+    "tiktok-growth": [
+      "tiktok", "tiktok strategy", "tiktok content", "short form", "video hook",
+      "viral", "fyp", "for you page", "tiktok ads", "organic tiktok", "views",
+      "engagement", "tiktok caption", "tiktok script", "landing page", "link in bio",
+      "tiktok funnel", "creator", "ugc", "content creator", "tiktok trends"
+    ],
+    "creative-direction": [
+      "creative brief", "photo shoot", "photography", "visual", "moodboard",
+      "art direction", "video shoot", "lookbook", "model", "styling", "set design",
+      "creative concept", "campaign concept", "aesthetics", "color palette",
+      "imagery", "creative assets", "brand shoot", "product photography"
+    ],
+    "paid-ads": [
+      "paid ads", "meta ads", "facebook ads", "instagram ads", "google ads",
+      "roas", "cpc", "cpm", "ad creative", "ad copy", "campaign", "targeting",
+      "audience", "retargeting", "lookalike", "ad spend", "budget", "media buying",
+      "ad performance", "ad creative rotation", "creative testing", "paid social"
+    ],
+    "retention-email": [
+      "email", "klaviyo", "sms", "retention", "loyalty", "repeat purchase",
+      "win back", "flow", "automation", "welcome series", "abandoned cart",
+      "post purchase", "segmentation", "list", "subscriber", "open rate",
+      "click rate", "email campaign", "newsletter", "broadcast", "customer lifetime value",
+      "CLV", "LTV", "churn", "re-engagement"
+    ]
+  },
+
+  "task_type_routes": {
+    "strategy":      ["brand-strategy", "tiktok-growth", "paid-ads", "retention-email"],
+    "writing":       ["copywriting", "retention-email", "paid-ads"],
+    "design":        ["creative-direction", "brand-strategy"],
+    "technical":     ["shopify-cro"],
+    "content":       ["tiktok-growth", "creative-direction"],
+    "analytics":     ["shopify-cro", "paid-ads", "retention-email"],
+    "campaign":      ["paid-ads", "tiktok-growth", "retention-email"]
+  },
+
+  "collaboration_rules": [
+    {
+      "trigger": "new product launch",
+      "departments": ["brand-strategy", "copywriting", "creative-direction", "tiktok-growth", "shopify-cro"],
+      "lead": "brand-strategy",
+      "workflow": "product-launch-sequence"
+    },
+    {
+      "trigger": "drop campaign",
+      "departments": ["copywriting", "tiktok-growth", "paid-ads", "shopify-cro", "creative-direction"],
+      "lead": "creative-direction",
+      "workflow": "drop-campaign-sequence"
+    },
+    {
+      "trigger": "email flow",
+      "departments": ["retention-email", "copywriting"],
+      "lead": "retention-email",
+      "workflow": "flow-build-sequence"
+    },
+    {
+      "trigger": "paid ad campaign",
+      "departments": ["paid-ads", "copywriting", "creative-direction"],
+      "lead": "paid-ads",
+      "workflow": "ad-campaign-sequence"
+    },
+    {
+      "trigger": "site audit",
+      "departments": ["shopify-cro", "copywriting", "brand-strategy"],
+      "lead": "shopify-cro",
+      "workflow": "site-audit-sequence"
+    }
+  ],
+
+  "escalation_path": {
+    "unresolved": "brand-strategy",
+    "cross_department": "brand-strategy",
+    "urgent": "shopify-cro"
+  }
+}

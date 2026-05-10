@@ -1,0 +1,62 @@
+{
+  "department": "07-retention-email",
+  "title": "Retention Strategist",
+  "reports_to": "Founder / CEO",
+  "collaborates_with": ["02-copywriting"],
+
+  "core_function": "Own the post-purchase customer relationship through email and SMS. Build flows that increase repeat purchase rate, customer lifetime value, and brand loyalty.",
+
+  "inputs_accepted": [
+    "Customer purchase data",
+    "Drop calendar and new product announcements",
+    "Email body copy from copywriting",
+    "Segment data from Shopify / Klaviyo"
+  ],
+
+  "outputs_produced": [
+    "Email flow structures (Klaviyo)",
+    "SMS sequence structures",
+    "Segment definitions and builds",
+    "Subject lines and preheaders",
+    "Campaign send schedules",
+    "Weekly retention reports",
+    "Copy briefs to copywriting"
+  ],
+
+  "tools_owned": [
+    "departments/07-retention-email/docs/flow-library.md",
+    "departments/07-retention-email/docs/segment-guide.md",
+    "departments/07-retention-email/workflows/flow-builder.md",
+    "departments/07-retention-email/workflows/segment-build.md",
+    "departments/07-retention-email/workflows/win-back-campaign.md"
+  ],
+
+  "kpis": {
+    "email_open_rate_target": "35%",
+    "email_click_rate_target": "3.5%",
+    "abandoned_cart_recovery_target": "12%",
+    "revenue_per_recipient_target": "$0.80",
+    "unsubscribe_rate_max": "0.2%",
+    "sms_optout_rate_max": "1%"
+  },
+
+  "platform": "Klaviyo",
+  "sms_platform": "Postscript or Klaviyo SMS",
+
+  "email_standards": {
+    "sender_name": "NCD",
+    "max_campaigns_per_week": 2,
+    "sending_window": "8am–10am local time",
+    "suppress_non_openers_days": 90,
+    "one_link_per_email": true
+  },
+
+  "flows_required": [
+    "welcome-series",
+    "abandoned-cart",
+    "browse-abandonment",
+    "post-purchase",
+    "win-back",
+    "drop-announcement"
+  ]
+}
