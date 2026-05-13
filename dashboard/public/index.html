@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCD Operations Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+      <div id="sidebar-header">
+        <div id="logo">NCD</div>
+        <div id="logo-sub">Operations</div>
+      </div>
+
+      <nav id="dept-nav">
+        <!-- populated by JS -->
+      </nav>
+
+      <div id="sidebar-footer">
+        <button class="nav-btn" data-view="board" id="btn-board">
+          <span class="nav-icon">≡</span> Task Board
+        </button>
+        <button class="nav-btn" data-view="route" id="btn-route">
+          <span class="nav-icon">→</span> Route a Task
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main id="main">
+
+      <!-- HEADER -->
+      <header id="topbar">
+        <div id="topbar-title">Overview</div>
+        <div id="topbar-actions">
+          <button class="btn-primary" id="new-task-btn">+ New Task</button>
+        </div>
+      </header>
+
+      <!-- VIEWS -->
+      <div id="view-overview" class="view active">
+        <div id="dept-grid">
+          <!-- dept cards populated by JS -->
+        </div>
+      </div>
+
+      <div id="view-department" class="view">
+        <div id="dept-detail">
+          <!-- populated by JS when dept selected -->
+        </div>
+      </div>
+
+      <div id="view-route" class="view">
+        <div class="view-inner">
+          <h2 class="view-title">Route a Task</h2>
+          <p class="view-sub">Describe any task. The router will identify which department owns it and who needs to collaborate.</p>
+          <div id="route-input-wrap">
+            <textarea id="route-input" placeholder="Describe your task — e.g. &quot;write product description for the Blackout Hoodie&quot; or &quot;launch drop 6 campaign&quot;" rows="3"></textarea>
+            <button class="btn-primary" id="route-btn">Route Task →</button>
+          </div>
+          <div id="route-result" class="hidden">
+            <div id="route-result-header">
+              <div id="route-primary-badge"></div>
+              <div id="route-meta"></div>
+            </div>
+            <div id="route-scores"></div>
+            <div id="route-workflow"></div>
+            <div id="route-assign-bar">
+              <span id="route-assign-label">Assign this task?</span>
+              <select id="route-priority-select">
+                <option value="P1">P1 — Emergency</option>
+                <option value="P2">P2 — Drop-related</option>
+                <option value="P3">P3 — Urgent</option>
+                <option value="P4" selected>P4 — Standard</option>
+              </select>
+              <button class="btn-primary" id="route-assign-btn">Assign to Department</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="view-board" class="view">
+        <div class="view-inner">
+          <div id="board-filters">
+            <h2 class="view-title">Task Board</h2>
+            <div id="filter-row">
+              <select id="filter-dept">
+                <option value="">All Departments</option>
+              </select>
+              <select id="filter-priority">
+                <option value="">All Priorities</option>
+                <option value="P1">P1</option>
+                <option value="P2">P2</option>
+                <option value="P3">P3</option>
+                <option value="P4">P4</option>
+              </select>
+            </div>
+          </div>
+          <div id="kanban">
+            <div class="kanban-col" id="col-pending">
+              <div class="kanban-col-header">Pending</div>
+              <div class="kanban-cards" data-status="pending"></div>
+            </div>
+            <div class="kanban-col" id="col-in-progress">
+              <div class="kanban-col-header">In Progress</div>
+              <div class="kanban-cards" data-status="in-progress"></div>
+            </div>
+            <div class="kanban-col" id="col-review">
+              <div class="kanban-col-header">Review</div>
+              <div class="kanban-cards" data-status="review"></div>
+            </div>
+            <div class="kanban-col" id="col-done">
+              <div class="kanban-col-header">Done</div>
+              <div class="kanban-cards" data-status="done"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- NEW TASK MODAL -->
+  <div id="modal-overlay" class="hidden">
+    <div id="modal">
+      <div id="modal-header">
+        <h3 id="modal-title">New Task</h3>
+        <button id="modal-close">✕</button>
+      </div>
+      <div id="modal-body">
+        <label>Task Description *
+          <textarea id="task-title" placeholder="What needs to be done?" rows="2"></textarea>
+        </label>
+        <label>Department *
+          <select id="task-dept"></select>
+        </label>
+        <label>Priority
+          <select id="task-priority">
+            <option value="P1">P1 — Emergency</option>
+            <option value="P2">P2 — Drop-related</option>
+            <option value="P3">P3 — Urgent</option>
+            <option value="P4" selected>P4 — Standard</option>
+          </select>
+        </label>
+        <label>Notes
+          <textarea id="task-notes" placeholder="Additional context..." rows="2"></textarea>
+        </label>
+      </div>
+      <div id="modal-footer">
+        <button class="btn-ghost" id="modal-cancel">Cancel</button>
+        <button class="btn-primary" id="modal-save">Create Task</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TASK DETAIL MODAL -->
+  <div id="task-modal-overlay" class="hidden">
+    <div id="task-modal">
+      <div id="task-modal-header">
+        <div id="task-modal-dept-badge"></div>
+        <button id="task-modal-close">✕</button>
+      </div>
+      <div id="task-modal-body">
+        <div id="task-modal-title"></div>
+        <div id="task-modal-meta"></div>
+        <div id="task-modal-controls">
+          <div class="control-row">
+            <label>Status</label>
+            <select id="task-status-select">
+              <option value="pending">Pending</option>
+              <option value="in-progress">In Progress</option>
+              <option value="review">Review</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+          <div class="control-row">
+            <label>Priority</label>
+            <select id="task-priority-edit">
+              <option value="P1">P1 — Emergency</option>
+              <option value="P2">P2 — Drop-related</option>
+              <option value="P3">P3 — Urgent</option>
+              <option value="P4">P4 — Standard</option>
+            </select>
+          </div>
+        </div>
+        <div id="task-modal-notes"></div>
+      </div>
+      <div id="task-modal-footer">
+        <button class="btn-danger" id="task-delete-btn">Delete Task</button>
+        <button class="btn-primary" id="task-save-btn">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOC VIEWER MODAL -->
+  <div id="doc-modal-overlay" class="hidden">
+    <div id="doc-modal">
+      <div id="doc-modal-header">
+        <div id="doc-modal-title"></div>
+        <button id="doc-modal-close">✕</button>
+      </div>
+      <div id="doc-modal-body">
+        <pre id="doc-modal-content"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

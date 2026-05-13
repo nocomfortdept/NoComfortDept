@@ -1,0 +1,13 @@
+{
+  "name": "nocomfortdept-dashboard",
+  "version": "1.0.0",
+  "description": "NCD internal operations dashboard",
+  "main": "dashboard/server.js",
+  "scripts": {
+    "dashboard": "node dashboard/server.js",
+    "start": "node dashboard/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

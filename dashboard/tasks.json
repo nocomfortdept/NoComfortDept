@@ -1,0 +1,13 @@
+[
+  {
+    "id": "1778708489081",
+    "title": "Build abandoned cart email flow",
+    "department": "retention-email",
+    "priority": "P3",
+    "status": "pending",
+    "notes": "Test task",
+    "routed_from": null,
+    "created_at": "2026-05-13T21:41:29.081Z",
+    "updated_at": "2026-05-13T21:41:29.081Z"
+  }
+]
