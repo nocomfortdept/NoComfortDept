@@ -247,6 +247,7 @@ app.post('/api/kpis/:deptId', (req, res) => {
 
 // ─── START ────────────────────────────────────────────────────────────────────
 
-app.listen(PORT, () => {
-  console.log(`\n  NCD Dashboard running at http://localhost:${PORT}\n`);
+const HOST = process.env.HOST || '0.0.0.0';
+app.listen(PORT, HOST, () => {
+  console.log(`\n  NCD Dashboard running at http://${HOST}:${PORT}\n`);
 });
